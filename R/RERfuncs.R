@@ -534,7 +534,7 @@ getAllResiduals=function(treesObj, cutoff=NULL, transform="sqrt", weighted=T,  u
     message(paste("cutoff is set to", cutoff))
   }
   if (weighted){
-    weights=computeWeightsAllVar(treesObj$paths, transform=transform, plot=T)
+    weights=computeWeightsAllVar(treesObj$paths, transform=transform, plot=F)
     residfunc=fastLmResidMatWeighted
   }
   else{
