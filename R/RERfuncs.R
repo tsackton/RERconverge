@@ -172,7 +172,7 @@ computeWeightsAllVar=function (mat, nv=NULL, transform="none",plot = T, predicte
     qqdiff=diff(qq)
     breaks=qq[1:nbreaks]+qqdiff/2
     rr=quantile(mml, c(0.0001, 0.99))
-    breaks=round(breaks,3)
+    breaks=unique(round(breaks,3))
     cutres<-cut(mml,breaks = breaks)
 
     cutres_tt=table(cutres)
@@ -527,14 +527,14 @@ getAllCor=function(RERmat, charP, method="auto",min.sp=10, min.pos=2, winsorize=
 #' @param maxT The maximum number of trees to compute results for. Since this function takes some time this is useful for debugging.
 #' @return A numer of trees by number of paths matrix of relative evolutionary rates. Only an independent set of paths has non-NA values for each tree.
 #' @export
-getAllResiduals=function(treesObj, cutoff=NULL, transform="sqrt", weighted=T,  useSpecies=NULL,  min.sp=10, scale=T,  doOnly=NULL, maxT=NULL, scaleForPproj=F, mean.trim=0.05){
+getAllResiduals=function(treesObj, cutoff=NULL, transform="sqrt", weighted=T,  useSpecies=NULL,  min.sp=10, scale=T,  doOnly=NULL, maxT=NULL, scaleForPproj=F, mean.trim=0.05, ...){
 
   if(is.null(cutoff)){
     cutoff=quantile(treesObj$paths, 0.05, na.rm=T)
     message(paste("cutoff is set to", cutoff))
   }
   if (weighted){
-    weights=computeWeightsAllVar(treesObj$paths, transform=transform, plot=F)
+    weights=computeWeightsAllVar(treesObj$paths, transform=transform)
     residfunc=fastLmResidMatWeighted
   }
   else{
