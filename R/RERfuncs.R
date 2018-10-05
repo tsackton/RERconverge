@@ -172,7 +172,6 @@ computeWeightsAllVar=function (mat, nv=NULL, transform="none",plot = T, predicte
     qqdiff=diff(qq)
     breaks=qq[1:nbreaks]+qqdiff/2
     rr=quantile(mml, c(0.0001, 0.99))
-    breaks=unique(round(breaks,3))
     cutres<-cut(mml,breaks = breaks)
 
     cutres_tt=table(cutres)
